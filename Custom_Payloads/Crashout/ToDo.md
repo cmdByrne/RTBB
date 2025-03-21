@@ -6,5 +6,7 @@
 
 ### Best Practice
 * find out what logs are created with entire operation
-  * powershell
+  * powershell commands
+  * powershell download
+  * recent files
   * usb input
