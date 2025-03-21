@@ -6,5 +6,5 @@
 
 ### Best Practice
 * find out what logs are created with entire operation
-*   powershell
-*   usb input
+  * powershell
+  * usb input
