@@ -1,7 +1,7 @@
 # Title: UploadZIP
 # Description: Target downloads ZIP from BB http server, unzips and runs
 # Author: Draco, Mochi
-# Target: Win10 (works on 11, but cmd window will not shrink)
+# Target: Win10
 # Version: 1.1
 # Dependencies: gohttp
 # Category: Upload
